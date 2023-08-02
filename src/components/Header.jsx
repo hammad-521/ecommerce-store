@@ -2,31 +2,34 @@ import React from "react";
 import "./Header.css";
 import { Avatar, Badge, Row, Col, Dropdown } from "antd";
 import { BsCartDash } from "react-icons/bs";
+
 import { AiOutlineUser } from "react-icons/ai";
+import { CiLogout, CiSettings } from "react-icons/ci";
 
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 
 import logo from "../assets/logo3.png";
 
-const items = [
-  {
-    key: "1",
-    label: <button onClick={() => console.log("clicked")}>Logout</button>,
-    icon: <AiOutlineUser />,
-  },
-  {
-    key: "2",
-    label: (
-      <button onClick={() => console.log("clicked")}>Change Password</button>
-    ),
-    icon: <AiOutlineUser />,
-  },
-];
-
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.userAuth.isLoggedIn);
   const dispatch = useDispatch();
+  const items = [
+    {
+      key: "1",
+      label: <button onClick={() => dispatch(logout())}>Logout</button>,
+      icon: <CiLogout />,
+    },
+    {
+      key: "2",
+      label: (
+        <button onClick={() => alert("Will work on future")}>
+          Change Password
+        </button>
+      ),
+      icon: <CiSettings />,
+    },
+  ];
   return (
     <header>
       <Row justify="space-between" align="middle" className="container">
@@ -48,6 +51,7 @@ const Header = () => {
                   items,
                 }}
                 trigger={["click"]}
+                className="profile"
               >
                 <Avatar
                   style={{ backgroundColor: "#1ea8a0" }}

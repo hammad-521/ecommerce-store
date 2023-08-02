@@ -2,23 +2,30 @@ import React, { useEffect } from "react";
 import "./Login.css";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Row } from "antd";
+import { Button, Checkbox, Form, Input, Row, Typography } from "antd";
+const { Text } = Typography;
 
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout } from "../../store/authSlice";
+import { login, logout, setRememberCredentials } from "../../store/authSlice";
 import { useNavigate } from "react-router";
+
+import { fetchRememberData } from "../../store/authActions";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.userAuth.username);
+  const { username, password, error } = useSelector((state) => state.userAuth);
 
   useEffect(() => {
-    if (user) {
+    if (username) {
       navigate("/products");
     }
-  }, [user]);
+  }, [username]);
+
+  useEffect(() => {
+    dispatch(fetchRememberData());
+  }, []);
 
   const onFinish = (values) => {
     dispatch(login(values));
@@ -32,6 +39,7 @@ const Login = () => {
         onFinish={onFinish}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
+        initialValues={{ username, password }}
       >
         <div>
           <h2>Welcome Back!</h2>
@@ -74,7 +82,9 @@ const Login = () => {
             </a>
           </Row>
         </Form.Item>
-
+        <Text type="danger" style={{ fontSize: "15px", fontWeight: "medium" }}>
+          {error}
+        </Text>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-btn">
             Log in

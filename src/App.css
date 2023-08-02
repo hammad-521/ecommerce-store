@@ -26,3 +26,12 @@ img {
   width: 96%;
   margin: 0 auto;
 }
+
+/* override libray styles */
+
+.ant-btn-primary {
+  background-color: var(--primary-green);
+}
+.ant-btn-primary:hover {
+  background-color: #06807acf !important;
+}

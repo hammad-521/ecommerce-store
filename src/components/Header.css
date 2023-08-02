@@ -12,7 +12,18 @@ header {
 }
 
 .profile {
+  cursor: pointer;
+}
+
+.ant-dropdown-menu-item button {
+  width: 100%;
   background: transparent;
   border: none;
+  text-align: left;
+  font-size: 15px;
   cursor: pointer;
+}
+
+.ant-dropdown-menu-item svg {
+  font-size: 18px !important;
 }
