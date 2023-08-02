@@ -9,6 +9,7 @@ import { ConfigProvider } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProductDetail from "./pages/productdetail/ProductDetail";
 import Cart from "./pages/cart/Cart";
+import ProtecteRoutes from "./ProtecteRoutes";
 
 const router = createBrowserRouter([
   {
@@ -19,15 +20,27 @@ const router = createBrowserRouter([
       { element: <Login />, index: true },
       {
         path: "products",
-        element: <Home />,
+        element: (
+          <ProtecteRoutes>
+            <Home />
+          </ProtecteRoutes>
+        ),
       },
       {
         path: "product-detail/:id",
-        element: <ProductDetail />,
+        element: (
+          <ProtecteRoutes>
+            <ProductDetail />
+          </ProtecteRoutes>
+        ),
       },
       {
         path: "cart",
-        element: <Cart />,
+        element: (
+          <ProtecteRoutes>
+            <Cart />
+          </ProtecteRoutes>
+        ),
       },
     ],
   },

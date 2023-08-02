@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.css";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Row } from "antd";
 
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "../../store/authSlice";
+import { useNavigate } from "react-router";
+
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.userAuth.username);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/products");
+    }
+  }, [user]);
+
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    dispatch(login(values));
   };
 
   return (
