@@ -1,7 +1,49 @@
 import React from "react";
+import "./App.css";
+import Login from "./pages/login/Login";
+import Error from "./pages/error/Error";
+import Home from "./pages/home/Home";
+import RootLayout from "./RootLayout";
 
+import { ConfigProvider } from "antd";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProductDetail from "./pages/productdetail/ProductDetail";
+import Cart from "./pages/cart/Cart";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <Error />,
+    children: [
+      { element: <Login />, index: true },
+      {
+        path: "products",
+        element: <Home />,
+      },
+      {
+        path: "product-detail/:id",
+        element: <ProductDetail />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+    ],
+  },
+]);
 const App = () => {
-  return <div>App</div>;
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          fontFamily: "Inter",
+        },
+      }}
+    >
+      <RouterProvider router={router} />
+    </ConfigProvider>
+  );
 };
 
 export default App;
