@@ -11,6 +11,8 @@
   --primary-green: #1ea8a0;
   --primary-tango: #ef6e25;
   --light-grey-bg: #f3f9f5;
+  --primary-heading: #002835;
+  --light-bg: #f6fafa;
 }
 body {
   font-family: "Inter", sans-serif;
