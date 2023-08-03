@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
-import { Select, Row, Col } from "antd";
+import { Select, Row, Col, Card } from "antd";
 
 import banner from "../../assets/banner.png";
 import ProductCard from "../../components/ProductCard";
 
-const PRODUCTS = new Array(20).fill(1);
+import {
+  useGetProductsQuery,
+  useGetProductByCategoryQuery,
+} from "../../store/services";
 
-console.log(PRODUCTS);
+import { CATEGORYOPTOINS } from "../../UIdata/categoryOptions";
 
 const Home = () => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const {
+    data: productsData,
+    isLoading,
+    error: errorInProducts,
+  } = useGetProductsQuery();
+
+  const { data: categoryData, error: errorInCategory } =
+    useGetProductByCategoryQuery(selectedCategory);
+
+  useEffect(() => {
+    setSelectedProducts(() => {
+      if (!errorInCategory && !errorInProducts)
+        return categoryData?.products?.length > 0
+          ? categoryData?.products
+          : productsData?.products;
+      else return [];
+    });
+  }, [categoryData, productsData]);
+
   const categoryChangeHandler = (value) => {
-    console.log(`selected ${value}`);
+    setSelectedCategory(value);
   };
 
   return (
@@ -20,7 +45,7 @@ const Home = () => {
         <img src={banner} alt="" />
       </section>
 
-      <section className="container">
+      <section className="container products__container">
         <Row
           justify="space-between"
           className="products__header"
@@ -36,31 +61,28 @@ const Home = () => {
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
             className="category"
-            options={[
-              {
-                value: "smarphone",
-                label: "Smart Phone",
-              },
-              {
-                value: "cosmetics",
-                label: "Cosmetics",
-              },
-              {
-                value: "interior",
-                label: "Interior",
-              },
-            ]}
+            options={CATEGORYOPTOINS}
           />
         </Row>
-      </section>
-
-      <section className="container products__container">
         <Row gutter={[64, 40]} style={{ flexWrap: "wrap" }} justify="center">
-          {PRODUCTS.map((item) => (
-            <Col>
-              <ProductCard />
-            </Col>
-          ))}
+          {selectedProducts?.length > 0
+            ? selectedProducts?.map((product) => (
+                <Col>
+                  <ProductCard product={product} />
+                </Col>
+              ))
+            : new Array(20).fill(1).map(() => (
+                <Col>
+                  <Card
+                    style={{
+                      width: 350,
+                      marginTop: 16,
+                    }}
+                    loading={isLoading}
+                  ></Card>
+                </Col>
+              ))}
+          {errorInCategory || (errorInCategory && <p>{errorInProducts}</p>)}
         </Row>
       </section>
     </>
