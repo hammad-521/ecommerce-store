@@ -8,7 +8,6 @@ import RootLayout from "./RootLayout";
 import { ConfigProvider } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProductDetail from "./pages/productdetail/ProductDetail";
-import Cart from "./pages/cart/Cart";
 import ProtecteRoutes from "./ProtecteRoutes";
 
 const router = createBrowserRouter([
@@ -31,14 +30,6 @@ const router = createBrowserRouter([
         element: (
           <ProtecteRoutes>
             <ProductDetail />
-          </ProtecteRoutes>
-        ),
-      },
-      {
-        path: "cart",
-        element: (
-          <ProtecteRoutes>
-            <Cart />
           </ProtecteRoutes>
         ),
       },
