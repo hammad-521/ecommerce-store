@@ -14,6 +14,18 @@ header {
 .profile {
   cursor: pointer;
 }
+.cart {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.cart__feedback {
+  margin-top: 15px;
+}
+.cart__feedback p {
+  color: var(--primary-tango);
+  font-size: 18px;
+}
 
 .ant-dropdown-menu-item button {
   width: 100%;

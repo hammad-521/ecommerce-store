@@ -1,0 +1,17 @@
+.cart__img {
+  width: 135px;
+  height: 135px;
+  border-radius: 5px;
+}
+
+.cart__info {
+  padding: 15px 20px;
+}
+
+.cart__info h2 {
+  font-size: 24px;
+}
+.cart__info p {
+  font-size: 18px;
+  margin: 6px 0;
+}

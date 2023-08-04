@@ -1,0 +1,25 @@
+.product__detail--quantity {
+  border: 1px solid gray;
+  width: fit-content;
+  border-radius: 2px;
+  padding: 3px 0;
+  margin-right: 30px;
+}
+
+.product__detail--quantity input {
+  border: none;
+  text-align: center;
+  width: 50px;
+}
+
+/* Remove arrows in input type number */
+/* Chrome, Safari, Edge, Opera */
+.product__detail--quantity input::-webkit-outer-spin-button,
+.product__detail--quantity input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.product__detail--addbtn button {
+  height: 40px;
+}

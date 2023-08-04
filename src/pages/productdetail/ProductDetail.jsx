@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductDetail.css";
 
 import { Carousel, Row, Col, Rate, Button } from "antd";
@@ -7,10 +7,28 @@ import { calculateDiscountedPrice } from "../../helper/calculations";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { useParams } from "react-router";
 import DetailsSekelon from "../../components/DetailsSekelon";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
+import ProductQuantityAction from "../../components/ProductQuantityAction";
+
 const ProductDetail = () => {
   const { id } = useParams();
   const { data: productData, isLoading } = useGetProductDetailQuery(id);
-  console.log(productData);
+  const [quantity, setQuantity] = useState(1);
+
+  const cart = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
+
+  const incrementQuantityHandler = () => {
+    setQuantity((prevQuantiy) => prevQuantiy + 1);
+  };
+
+  const decrementQuantityHandler = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantiy) => prevQuantiy - 1);
+    }
+  };
+
   return (
     <section className="container detail__container">
       {!isLoading ? (
@@ -38,13 +56,23 @@ const ProductDetail = () => {
               <sup> ${productData?.price}</sup>
             </p>
             <Row className="product__detail--action" align="middle">
-              <Col className="product__detail--quantity">
-                <Button type="outline" icon={<PlusOutlined />} />
-                <input type="number" placeholder="0" />
-                <Button type="outline" icon={<MinusOutlined />} />
-              </Col>
+              <ProductQuantityAction
+                quantity={quantity}
+                onIncrement={incrementQuantityHandler}
+                onDcrement={decrementQuantityHandler}
+              />
               <Col className="product__detail--addbtn">
-                <Button type="primary">Add to Cart</Button>
+                <Button
+                  onClick={() => {
+                    {
+                      dispatch(addToCart({ newItem: productData, quantity }));
+                      setQuantity(1);
+                    }
+                  }}
+                  type="primary"
+                >
+                  Add to Cart
+                </Button>
               </Col>
             </Row>
           </Col>

@@ -5,7 +5,11 @@ import { BsCartPlus } from "react-icons/bs";
 import { calculateDiscountedPrice } from "../helper/calculations";
 
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
+
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
   return (
     <div className="card">
       <Link to={`/product-detail/${product.id}`}>
@@ -26,7 +30,10 @@ const ProductCard = ({ product }) => {
             <sup>${product.price}</sup>
           </p>
         </div>
-        <div className="card__cart">
+        <div
+          className="card__cart"
+          onClick={() => dispatch(addToCart({ newItem: product, quantity: 1 }))}
+        >
           <BsCartPlus />
         </div>
       </div>

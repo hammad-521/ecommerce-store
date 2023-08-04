@@ -12,6 +12,8 @@ import {
 
 import { CATEGORYOPTOINS } from "../../UIdata/categoryOptions";
 
+import { v4 as uuidv4 } from "uuid";
+
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -68,12 +70,13 @@ const Home = () => {
           {selectedProducts?.length > 0
             ? selectedProducts?.map((product) => (
                 <Col>
-                  <ProductCard product={product} />
+                  <ProductCard key={uuidv4()} product={product} />
                 </Col>
               ))
             : new Array(20).fill(1).map(() => (
                 <Col>
                   <Card
+                    key={uuidv4()}
                     style={{
                       width: 350,
                       marginTop: 16,

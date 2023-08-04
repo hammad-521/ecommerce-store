@@ -1,0 +1,15 @@
+.cart__footer {
+  text-align: center;
+}
+
+.cart__footer p {
+  font-size: 19px;
+}
+
+.cart__footer button {
+  font-size: 16px;
+  color: var(--primary-green);
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
